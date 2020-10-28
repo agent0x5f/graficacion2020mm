@@ -1,0 +1,109 @@
+<html>
+
+<head>
+	<title>Aprendiendo JavaScript</title>
+</head>
+
+<body>
+	<h1>Diferentes maneras de agregar código JavaScript</h1>
+	<h2>Cualquier script de JavaScript, no importa cómo lo utilices, puede tener 2 tipos de "código"</h2>
+	<p></p>
+	<h2>Tipo 1: Las funciones o métodos que tú declares.</h2>
+	<p>Estos siempre se ejecutarán solamente cuando tú los invoques desde cualquier parte del programa.</p>
+	<p></p>
+	<h2>Tipo 2: El código o las instrucciones que NO forman parte de una función o método.</h2>
+	<p>Este código puede considerarse como "el programa princial" de tu script.</p>
+	<p>Se ejecutará automáticamente al momento de carguar la página o documento que lo contiene.</p>
+	<p></p>
+	<p>Este código siempre se ejecuta en el órden en que es cargado en el navegador</p>
+	<p>Por ello resulta importante el órden en que incrustas o cargas los scripts en el documento.</p>
+	<p></p>
+	<p>El navegador ejecuta cada script que incluyas en el documento, en el órden que van apareciendo.</p>
+	<p>pero se ejecutan como un único programa.</p>
+	<p>Al ejecutar un script en particular, el navegador conserva el "estado de la ejecución" de los script anteriores,</p>
+	<p>pero desconoce completamente la existencia de los scripts posteriores.</p>
+	<p>UN ERROR en la ejecución de un script, DETIENE LA EJECUCION DE ESE SCRIPT en particular</p>
+	<p></p>
+	<br>
+	<br>
+	<br>
+
+	<h2>Forma número 1: Scripts embebidos en el documento HTML</h2>
+
+	<script>			
+		document.write("Script 1 embebido en html<br>");
+		funcion1();		//Puedo invocar a la funcion1() porque está definida en este script
+									//aunque esté definida mas abajo
+
+		function funcion1() {
+						document.write("función en el Script 1<br>");
+		}
+
+		funcion3();		//NO puedo invocar a la función3() porque está definida en otro script más abajo
+	</script>
+
+	<script>
+		document.write("Script 2 embebido en html<br>");		
+	</script>
+
+
+	<script>
+		document.write("Script 3 embebido en html<br>");
+
+		function funcion3() {
+			document.write("función en el Script 3<br>");
+		}
+		funcion1();	//Puedo invocar a la funcion1() porque fue definida antes (en un script previo)
+	</script>
+	<br>
+	<br>
+	<br>
+	<br>
+
+
+
+	<h2>Forma número 2: Scripts en archivos externos, incluidos en el documento HTML</h2>
+	<script src="programa1_1.js"></script>
+	<script src="programa1_2.js"></script>
+	<script src="programa1_3.js"></script>
+	<br>
+	<br>
+	<br>
+	<br>
+
+
+
+	<h2>Forma número 3: Scripts en archivos externos, AUTO-INCLUIDOS en el documento HTML</h2>
+	<p>Solo se incluye lo que vendría a ser "el archivo principal".</p>
+	<script src="programa2_1.js"></script>
+	<br>
+	<br>
+	<br>
+	<br>
+
+
+
+	<h2>Forma número 4: Módulos embebidos en el documento HTML</h2>
+	<p id="5">Solo se incluye lo que vendría a ser "el archivo principal".</p>
+		<!---->
+		<script type="module">
+			import {hola, hola2, hola3} from './modulo1.js'
+			hola();//no se ejecuta debido a la carga asincrona del documento, debido al write, se debe cambiar por manipulacion del DOM
+			hola2();//se ejecuta, pero agrega el texto al final del documento
+			hola3();//este si funciona correctamente
+		</script>
+		<!-- aqui vas a incluir 3 módulos JavaScript externos -->
+	<br>
+	<br>
+	<br>
+	<br>
+	<style>
+		canvas {
+		  border: 1px solid black;
+		}
+	  </style>
+	  <script type="module" src="main.js"></script>
+	
+</body>
+
+</html>
