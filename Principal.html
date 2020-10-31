@@ -103,6 +103,16 @@
 		}
 	  </style>
 	  <script type="module" src="main.js"></script>
+
+	  <p>Haciendo uso del import * y del export {...}</p>
+	  <script type="module">
+		  import * as modulo4 from "/modulo4.js"; //se importan todo el archivo ahora considerado como una clase
+		 //notese que la funcion de autocompletar no muestra las funciones.
+		 //sin embargo, al escribirlas, SI se reconocen y funcionan correctamente.
+		  modulo4.hola6(); 
+		  modulo4.mensaje();
+		  modulo4.mensaje2();
+	  </script>
 	
 </body>
 
