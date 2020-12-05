@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<div id="demo-container">
+<div id="texto">
 	<label for="file-input" id="file-input-label">Choose Text File</label>
 	<input type="file" id="file-input" accept="text/plain" />
 	<div id="contents"></div>
@@ -43,8 +43,7 @@ document.querySelector("#file-input").addEventListener('change', function() {
 		// Create table object. 
 		var a = document.createElement("TABLE"); 
 		a.setAttribute("id", "MyTable"); 
-		document.body.appendChild(a); 
-
+		document.getElementById("texto").appendChild(a)
 		var b = document.createElement("TR");//creo el primer renglon por default 
 		b.setAttribute("id", 100); 
 		document.getElementById("MyTable").appendChild(b); 
@@ -75,13 +74,29 @@ document.querySelector("#file-input").addEventListener('change', function() {
             document.getElementById("MyTable").appendChild(b); 
 			}
         iter++; //paso al siguiente caracter
-        }  
-
+        }
 	});
 
 	// read as text file
 	reader.readAsText(file);
 });       
+</script>
+<hr>
+<div id="json">
+	<label for="file-input" id="file-input-label">Choose Text File</label>
+	<input type="file" id="file-input" accept="text/plain" />
+	<div id="contents"></div>
+</div>
+<script>
+	var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    var myObj = JSON.parse(this.responseText);
+    document.getElementById("json").innerHTML = myObj.name;
+  }
+};
+xmlhttp.open("GET", "jsontest.json", true);
+xmlhttp.send();
 </script>
 </body>
 </html>
