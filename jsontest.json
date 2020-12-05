@@ -1,9 +1,8 @@
-{
-    "name":"John",
-    "age":31,
-    "pets":[
-        { "animal":"dog", "name":"Fido" },
-        { "animal":"cat", "name":"Felix" },
-        { "animal":"hamster", "name":"Lightning" }
-    ]
-}
+{ 
+    "phones" : [ {"type" : "home", "number" : "555‑3762" },
+                 {"type" : "work", "number" : "555‑7242" },
+           		 {"type" : "work", "number" : "555‑1223" },
+                 {"type" : "work", "number" : "555‑0000" },
+             	 {"type" : "home", "number" : "555‑3221" },
+                 {"type" : "work", "number" : "555‑5696" }]
+} 

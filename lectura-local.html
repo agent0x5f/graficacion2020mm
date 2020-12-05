@@ -92,7 +92,51 @@ document.querySelector("#file-input").addEventListener('change', function() {
 xmlhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     var myObj = JSON.parse(this.responseText);
-    document.getElementById("json").innerHTML = myObj.name;
+    	
+	// Create table object. 
+	var a = document.createElement("TABLE"); 
+	a.setAttribute("id", "MyTablejson"); 
+	document.getElementById("json").appendChild(a)
+	
+		var lineas=0;
+		var k=0;
+			//creo el titulo para la tabla
+			var b = document.createElement("TR"); 
+			lineas++; //aumento el contador de lineas en mi tabla
+			b.setAttribute("id", lineas+200);
+            document.getElementById("MyTablejson").appendChild(b); 
+			
+			var c = document.createElement("TD"); 
+			var d = document.createTextNode("type"); 
+			c.appendChild(d); 
+			document.getElementById(200+lineas).appendChild(c);
+    		
+			var c = document.createElement("TD"); 
+			var d = document.createTextNode("number"); 
+			c.appendChild(d); 
+			document.getElementById(200+lineas).appendChild(c);
+
+		while(myObj.phones[k] != undefined)
+        {
+			//creo una nueva linea en mi tabla           
+            var b = document.createElement("TR"); 
+			lineas++; //aumento el contador de lineas en mi tabla
+			b.setAttribute("id", lineas+200);
+            document.getElementById("MyTablejson").appendChild(b); 
+			
+			var c = document.createElement("TD"); 
+			var d = document.createTextNode(myObj.phones[k].type); 
+			c.appendChild(d); 
+			document.getElementById(200+lineas).appendChild(c);
+    		
+			var c = document.createElement("TD"); 
+			var d = document.createTextNode(myObj.phones[k].number); 
+			c.appendChild(d); 
+			document.getElementById(200+lineas).appendChild(c);
+           
+			k++;
+        }
+
   }
 };
 xmlhttp.open("GET", "jsontest.json", true);
