@@ -1,8 +1,10 @@
 { 
-    "phones" : [ {"type" : "home", "number" : "555‑3762" },
-                 {"type" : "work", "number" : "555‑7242" },
-           		 {"type" : "work", "number" : "555‑1223" },
-                 {"type" : "work", "number" : "555‑0000" },
-             	 {"type" : "home", "number" : "555‑3221" },
-                 {"type" : "work", "number" : "555‑5696" }]
+    "phones" : [ {"mes" : "January", "ventas" : "44" },
+                 {"mes" : "February", "ventas" : "55" },
+           		 {"mes" : "March", "ventas" : "66" },
+                 {"mes" : "April", "ventas" : "77" },
+             	 {"mes" : "May", "ventas" : "88" },
+                 {"mes" : "June", "ventas" : "99" },
+                 {"mes" : "July", "ventas" : "111" },
+                 {"mes" : "August", "ventas" : "122" }]
 } 

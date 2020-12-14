@@ -25,7 +25,9 @@
 	<button id="removeDataset">Remove Dataset</button>
 	<button id="addData">Add Data</button>
 	<button id="removeData">Remove Data</button>
+	<button id="cargarDatos">Cargar Datos</button>
 	<script>
+
 		var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 		var config = {
 			type: 'line',
@@ -159,6 +161,45 @@
 
 			window.myLine.update();
 		});
+
+		document.getElementById('cargarDatos').addEventListener('click', function(){	
+		var lista=[];	
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+		var myObj = JSON.parse(this.responseText);					
+		var k=1;
+		
+		while(myObj.phones[k] != undefined)
+		{				
+			lista.push(myObj.phones[k].ventas);
+			k++;
+		}
+	
+		}
+		};
+		//el tercer parametro es para decir si es asincrona la llamada
+		xmlhttp.open("GET", "jsontest.json", false);
+		xmlhttp.send();
+
+		//ya tengo los valores en lista, ahora a graficarlos
+			var colorName = colorNames[config.data.datasets.length % colorNames.length];
+			var newColor = window.chartColors[colorName];
+			var newDataset = {
+				label: 'Dataset ' + config.data.datasets.length,
+				backgroundColor: newColor,
+				borderColor: newColor,
+				data: lista,
+				fill: false
+			};
+		
+			config.data.datasets.push(newDataset);
+			window.myLine.update();
+
+
+		});
+		
+
 	</script>
 </body>
 
