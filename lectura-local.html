@@ -107,12 +107,12 @@ xmlhttp.onreadystatechange = function() {
             document.getElementById("MyTablejson").appendChild(b); 
 			
 			var c = document.createElement("TD"); 
-			var d = document.createTextNode("type"); 
+			var d = document.createTextNode("mes"); 
 			c.appendChild(d); 
 			document.getElementById(200+lineas).appendChild(c);
     		
 			var c = document.createElement("TD"); 
-			var d = document.createTextNode("number"); 
+			var d = document.createTextNode("ventas"); 
 			c.appendChild(d); 
 			document.getElementById(200+lineas).appendChild(c);
 
@@ -125,12 +125,12 @@ xmlhttp.onreadystatechange = function() {
             document.getElementById("MyTablejson").appendChild(b); 
 			
 			var c = document.createElement("TD"); 
-			var d = document.createTextNode(myObj.phones[k].type); 
+			var d = document.createTextNode(myObj.phones[k].mes); 
 			c.appendChild(d); 
 			document.getElementById(200+lineas).appendChild(c);
     		
 			var c = document.createElement("TD"); 
-			var d = document.createTextNode(myObj.phones[k].number); 
+			var d = document.createTextNode(myObj.phones[k].ventas); 
 			c.appendChild(d); 
 			document.getElementById(200+lineas).appendChild(c);
            
