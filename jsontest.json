@@ -1,10 +1,8 @@
 { 
-    "phones" : [ {"mes" : "January", "ventas" : "44" },
-                 {"mes" : "February", "ventas" : "55" },
-           		 {"mes" : "March", "ventas" : "66" },
-                 {"mes" : "April", "ventas" : "77" },
-             	 {"mes" : "May", "ventas" : "88" },
-                 {"mes" : "June", "ventas" : "99" },
-                 {"mes" : "July", "ventas" : "111" },
-                 {"mes" : "August", "ventas" : "122" }]
+    "phones" : [ {"mes" : "January", "ventas" : "4" },
+                 {"mes" : "February", "ventas" : "5" },
+           		 {"mes" : "March", "ventas" : "6" },
+                 {"mes" : "April", "ventas" : "7" },
+             	 {"mes" : "May", "ventas" : "8" },
+                 {"mes" : "June", "ventas" : "9" }]
 } 

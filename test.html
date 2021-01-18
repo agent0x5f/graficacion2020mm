@@ -10,19 +10,19 @@
     <hr>
     <!--Div that will hold the bar chart-->
     <div id="chart2"></div>
-    <button>cargar</button>
+    <button id="cargar2">cargar</button>
     <hr>
     <!--Div that will hold the bar chart-->
     <div id="chart3"></div>
-    <button>cargar</button>
+    <button id="cargar3">cargar</button>
     <hr>
     <!--Div that will hold the bar chart-->
     <div id="chart4"></div>
-    <button>cargar</button>
+    <button id="cargar4">cargar</button>
     <hr>
     <!--Div that will hold the bar chart-->
     <div id="chart5"></div>
-    <button>cargar</button>
+    <button id="cargar5">cargar</button>
     <hr>
     
     <script type="text/javascript">
@@ -69,14 +69,16 @@
 
       document.getElementById('cargar').addEventListener('click', function () {
         var lista = [];
+        var lista2 = [];
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var myObj = JSON.parse(this.responseText);
-                var k = 1;
-
+                var k = 0;
+                ///leo los datos que quiero del json
                 while (myObj.phones[k] != undefined) {
-                    lista.push(myObj.phones[k].ventas);
+                    lista.push(myObj.phones[k].mes);
+                    lista2.push(myObj.phones[k].ventas);
                     k++;
                 }
 
@@ -87,20 +89,93 @@
         xmlhttp.send();
 
         //ya tengo los valores en lista, ahora a graficarlos
-        var colorName = colorNames[config.data.datasets.length % colorNames.length];
-        var newColor = window.chartColors[colorName];
-        var newDataset = {
-            label: 'Dataset ' + config.data.datasets.length,
-            backgroundColor: newColor,
-            borderColor: newColor,
-            data: lista,
-            fill: false
-        };
+        var options = {'title':'Nueva entrada desde archivo',
+               'width':500,
+               'height':300};
+        
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'mes');
+        data.addColumn('number', 'ventas');
+        console.log(lista);
+        console.log(lista2);
 
-        config.data.datasets.push(newDataset);
-        window.myLine.update();
+        //cambiar a dinamico
+
+        for(var x=0;x<6;x++)
+        {
+          console.log([lista[x], parseInt(lista2[x])]);
+          data.addRow([lista[x], parseInt(lista2[x])]);
+        }
+         
+       // config.data.datasets.push(newDataset);
+       // window.myLine.update();
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart'));
+        chart.draw(data, options);
     });
+
+    document.getElementById('cargar2').addEventListener('click', function () {
+      var lista = [];
+      var lista2 = [];
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+              var myObj = JSON.parse(this.responseText);
+              var k = 0;
+              ///leo los datos que quiero del json
+              while (myObj.phones[k] != undefined) {
+                  lista.push(myObj.phones[k].mes);
+                  lista2.push(myObj.phones[k].ventas);
+                  k++;
+              }
+
+          }
+      };
+      //el tercer parametro es para decir si es asincrona la llamada
+      xmlhttp.open("GET", "jsontest.json", false);
+      xmlhttp.send();
+
+      //ya tengo los valores en lista, ahora a graficarlos
+      var options = {'title':'Nueva entrada desde archivo',
+             'width':500,
+             'height':300};
+      
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'mes');
+      data.addColumn('number', 'ventas');
+      console.log(lista);
+      console.log(lista2);
+
+      //cambiar a dinamico
+
+      for(var x=0;x<6;x++)
+      {
+        console.log([lista[x], parseInt(lista2[x])]);
+        data.addRow([lista[x], parseInt(lista2[x])]);
+      }
+       
+     // config.data.datasets.push(newDataset);
+     // window.myLine.update();
+    
+     var chart2 = new google.visualization.BarChart(document.getElementById('chart2'));
+     chart2.draw(data, options);
+
+  });
     </script>
 
   </body>
 </html>
+
+data.addColumn('string', 'Topping');
+data.addColumn('number', 'Slices');
+data.addRows([
+  ['Mushrooms', 3],
+  ['Onions', 1],
+  ['Olives', 1],
+  ['Zucchini', 1],
+  ['Pepperoni', 2]
+]);
+// Set chart options
+var options = {'title':'How Much Pizza I Ate Last Night',
+               'width':500,
+               'height':300};
