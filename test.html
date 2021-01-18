@@ -2,6 +2,29 @@
   <head>
     <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  </head>
+  <body>
+      <!--Div that will hold the pie chart-->
+    <div id="chart"></div>
+    <button id="cargar">cargar</button>
+    <hr>
+    <!--Div that will hold the bar chart-->
+    <div id="chart2"></div>
+    <button>cargar</button>
+    <hr>
+    <!--Div that will hold the bar chart-->
+    <div id="chart3"></div>
+    <button>cargar</button>
+    <hr>
+    <!--Div that will hold the bar chart-->
+    <div id="chart4"></div>
+    <button>cargar</button>
+    <hr>
+    <!--Div that will hold the bar chart-->
+    <div id="chart5"></div>
+    <button>cargar</button>
+    <hr>
+    
     <script type="text/javascript">
       // Load the Visualization API and the corechart package.
       google.charts.load('current', {'packages':['corechart']});
@@ -43,30 +66,41 @@
         var chart5 = new google.visualization.ScatterChart(document.getElementById('chart5'));
         chart5.draw(data, options);
       }
+
+      document.getElementById('cargar').addEventListener('click', function () {
+        var lista = [];
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var myObj = JSON.parse(this.responseText);
+                var k = 1;
+
+                while (myObj.phones[k] != undefined) {
+                    lista.push(myObj.phones[k].ventas);
+                    k++;
+                }
+
+            }
+        };
+        //el tercer parametro es para decir si es asincrona la llamada
+        xmlhttp.open("GET", "jsontest.json", false);
+        xmlhttp.send();
+
+        //ya tengo los valores en lista, ahora a graficarlos
+        var colorName = colorNames[config.data.datasets.length % colorNames.length];
+        var newColor = window.chartColors[colorName];
+        var newDataset = {
+            label: 'Dataset ' + config.data.datasets.length,
+            backgroundColor: newColor,
+            borderColor: newColor,
+            data: lista,
+            fill: false
+        };
+
+        config.data.datasets.push(newDataset);
+        window.myLine.update();
+    });
     </script>
 
-  </head>
-  <body>
-      <!--Div that will hold the pie chart-->
-    <div id="chart"></div>
-    <button>cargar</button>
-    <hr>
-    <!--Div that will hold the bar chart-->
-    <div id="chart2"></div>
-    <button>cargar</button>
-    <hr>
-    <!--Div that will hold the bar chart-->
-    <div id="chart3"></div>
-    <button>cargar</button>
-    <hr>
-    <!--Div that will hold the bar chart-->
-    <div id="chart4"></div>
-    <button>cargar</button>
-    <hr>
-    <!--Div that will hold the bar chart-->
-    <div id="chart5"></div>
-    <button>cargar</button>
-    <hr>
-    
   </body>
 </html>
