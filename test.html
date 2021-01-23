@@ -87,7 +87,47 @@
 
         var chart5 = new google.visualization.ScatterChart(document.getElementById('chart5'));
         chart5.draw(data, options);
+
+        //las 3 nuevas graficas de la semana 2 de este tema
+        //tipo 1: una dota dibujada con chart.draw()
+        var options2 = {'title':'semana 2 ejemplo',
+                       'width':500,
+                       'height':300,
+                       pieHole: 0.4,};
+        var chart6 = new google.visualization.PieChart(document.getElementById('chart6'));
+        chart6.draw(data, options2);
       }
+
+      //tipo 2: ChartWrapper
+      google.charts.load('current');   // Don't need to specify chart libraries!
+      google.charts.setOnLoadCallback(drawVisualization);
+
+      function drawVisualization() {
+        var wrapper = new google.visualization.ChartWrapper({
+          chartType: 'SteppedAreaChart',
+          dataTable: [['', 'Germany', 'USA', 'Brazil', 'Canada', 'France', 'RU'],
+                      ['', 700, 300, 400, 500, 600, 800]],
+          options: {'title': 'Countries'},
+          containerId: 'chart7'
+        });
+        wrapper.draw();
+      }
+      //tipo 3: drawChart
+      google.charts.load('current');   // Don't need to specify chart libraries!
+      google.charts.setOnLoadCallback(drawVisualization2);
+      function drawVisualization2() {
+        google.visualization.drawChart({
+         "containerId": "chart8",
+         "dataTable": [['', 'Germany', 'USA', 'Brazil', 'Canada', 'France', 'RU'],
+         ['', 700, 300, 400, 500, 600, 800]],
+         "chartType": "Table",
+         "options": {
+            "alternatingRowStyle": true,
+            "showRowNumber" : true
+         }
+       });
+      }
+    google.charts.setOnLoadCallback(drawVisualization);
 
       document.getElementById('cargar').addEventListener('click', function () {
         var lista = [];
