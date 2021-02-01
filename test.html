@@ -35,7 +35,7 @@
     <button id="cargar5">cargar</button>
   </div>
   <hr>
-  <h1>
+  <h1 id="titulo2">
     Semana 2 de google charts
   </h1>
   <div class="box">
@@ -100,6 +100,17 @@
                        'height':300,
                        pieHole: 0.4,};
         var chart6 = new google.visualization.PieChart(document.getElementById('chart6'));
+
+        function selectHandler() {
+          var selectedItem = chart6.getSelection()[0];
+          if (selectedItem) {
+            var topping = data.getValue(selectedItem.row, 0);
+            //alert('The user selected ' + topping);
+            document.getElementById('titulo2').innerHTML=topping;
+          }
+        }
+
+        google.visualization.events.addListener(chart6, 'select', selectHandler);    
         chart6.draw(data, options2);
       }
 
