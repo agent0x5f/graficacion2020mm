@@ -43,7 +43,21 @@
     <button id="cargar6">cargar</button>
     
     <!--Div that will hold the bar chart-->
-    <div id="chart7"></div>
+    <div id=tablero1>
+      <div id="control1"></div>
+      <div>
+        <button style="margin: 1em 1em 1em 2em" onclick="changeRange();">
+          Select range [1, 8]
+        </button><br />
+        <button style="margin: 1em 1em 1em 2em" onclick="changeOptionsON();">
+          ON
+        </button>
+        <button style="margin: 1em 1em 1em 2em" onclick="changeOptionsOFF();">
+          OFF
+        </button>
+      </div>
+      <div id="chart7"></div>
+    </div>
     <button id="cargar7">cargar</button>
     
     <!--Div that will hold the bar chart-->
@@ -54,7 +68,7 @@
     
     <script type="text/javascript">
       // Load the Visualization API and the corechart package.
-      google.charts.load('current', {'packages':['corechart']});
+      google.charts.load('current', {'packages':['corechart','controls']});
       // Set a callback to run when the Google Visualization API is loaded.
       google.charts.setOnLoadCallback(drawChart);
       // Callback that creates and populates a data table,
@@ -116,18 +130,70 @@
 
       //tipo 2: ChartWrapper
       google.charts.load('current');   // Don't need to specify chart libraries!
-      google.charts.setOnLoadCallback(drawVisualization);
+      google.charts.setOnLoadCallback(drawStuff);
 
-      function drawVisualization() {
-        var wrapper = new google.visualization.ChartWrapper({
-          chartType: 'SteppedAreaChart',
-          dataTable: [['', 'Germany', 'USA', 'Brazil', 'Canada', 'France', 'RU'],
-                      ['', 700, 300, 400, 500, 600, 800]],
-          options: {'title': 'Countries'},
-          containerId: 'chart7'
+      
+      function drawStuff() {
+
+        var dashboard = new google.visualization.Dashboard(document.getElementById('tablero1'));
+
+        // We omit "var" so that programmaticSlider is visible to changeRange.
+        var programmaticSlider = new google.visualization.ControlWrapper({
+          'controlType': 'NumberRangeFilter',
+          'containerId': 'control1',
+          'options': {
+            'filterColumnLabel': 'Donuts eaten',
+            'ui': {'labelStacking': 'vertical'}
+          }
         });
-        wrapper.draw();
+
+        var programmaticChart  = new google.visualization.ChartWrapper({
+          'chartType': 'SteppedAreaChart',
+          'containerId': 'chart7',
+          'options': {
+            'width': 300,
+            'height': 300,
+            'legend': 'none',
+            'chartArea': {'left': 15, 'top': 15, 'right': 0, 'bottom': 0},
+            'pieSliceText': 'value'
+          }
+        });
+
+        var data = google.visualization.arrayToDataTable([
+          ['Name', 'Donuts eaten'],
+          ['Michael' , 5],
+          ['Elisa', 7],
+          ['Robert', 3],
+          ['John', 2],
+          ['Jessica', 6],
+          ['Aaron', 1],
+          ['Margareth', 8]
+        ]);
+
+        dashboard.bind(programmaticSlider, programmaticChart);
+        dashboard.draw(data);
+
+        changeRange = function() {
+          programmaticSlider.setState({'lowValue': 1, 'highValue': 8});
+          programmaticSlider.draw();
+        };
+
+        changeOptionsOFF = function() {
+          programmaticChart.setOption('connectSteps', false);
+          programmaticChart.setOption('title', 'Donas Comidas -Area-');
+          programmaticChart.setChartType('AreaChart');
+
+          programmaticChart.draw();
+        };
+        changeOptionsON = function() {
+          programmaticChart.setOption('connectSteps', true);
+          programmaticChart.setOption('title', 'Donas Comidas -Barras escalonadas-');
+          programmaticChart.setChartType('SteppedAreaChart');
+          programmaticChart.draw();
+        };
       }
+      
+      
       //tipo 3: drawChart
       google.charts.load('current');   // Don't need to specify chart libraries!
       google.charts.setOnLoadCallback(drawVisualization2);
@@ -143,8 +209,7 @@
          }
        });
       }
-    google.charts.setOnLoadCallback(drawVisualization);
-
+   
       document.getElementById('cargar').addEventListener('click', function () {
         var lista = [];
         var lista2 = [];
